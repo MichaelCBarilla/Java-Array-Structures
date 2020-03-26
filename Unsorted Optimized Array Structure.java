@@ -21,9 +21,9 @@ public class UOA<T> {
 	}
 	
 	//Methods
-	public boolean insert(T newNode) {
+	public boolean insert(T newNode) {				//Insert
 		KeyMode node = (KeyMode) newNode;
-		if (expandable && next >= size) {										//Check for expansion
+		if (expandable && next >= size) {			//Check for expansion
 			size = size * 2;																		
 			T[] temp = data;																
 			T[] larger = (T[]) new Object[size];									
@@ -33,17 +33,17 @@ public class UOA<T> {
 			larger = null;
 		}																								
 		
-		if (expandable == false && next >= size) {						//Check
+		if (expandable == false && next >= size) {		//Check
 			return false;																							
 		}																								
 		
-		data[next] = (T) node.deepCopy();										//Insert
+		data[next] = (T) node.deepCopy();			
 		next++;
 		return true;
 	}																									
 	
-	public KeyMode fetch(Object targetKey) {
-		KeyMode node = (KeyMode) data[0];									//Fetch
+	public KeyMode fetch(Object targetKey) {			//Fetch
+		KeyMode node = (KeyMode) data[0];									
 		T temp;
 		int i = 0;
 		while (i < next && node.compareTo(targetKey) != 0) {
@@ -54,8 +54,7 @@ public class UOA<T> {
 			return null;
 		}
 		node = node.deepCopy();
-		// Optimizing/Bubbling most used data towards top.
-		if (i != 0) {																				//Bubble up node
+		if (i != 0) {				//Bubble up node for optimization
 			temp = data[i - 1];
 			data[i - 1] = data[i];
 			data[i] = temp;
@@ -63,8 +62,8 @@ public class UOA<T> {
 		return node;
 	}
 
-	public boolean delete(Object targetKey) {
-		KeyMode node = (KeyMode) data[0];									//Delete
+	public boolean delete(Object targetKey) {			//Delete
+		KeyMode node = (KeyMode) data[0];						
 		int i = 0;
 		while (i < next && node.compareTo(targetKey) != 0) {
 			i++;
@@ -74,13 +73,13 @@ public class UOA<T> {
 			return false;
 		}
 		next--;
-		data[i] = data[next];															//Garbage Collection
+		data[i] = data[next];			//Garbage Collection
 		data[next] = null;
 		return true;
 	}
 	
-	public boolean update(Object targetKey, T newNode) {
-		KeyMode node = (KeyMode) data[0];									//Update
+	public boolean update(Object targetKey, T newNode) {		//Update
+		KeyMode node = (KeyMode) data[0];									
 		int i = 0;
 		while (i < next && node.compareTo(targetKey) != 0) {
 			i++;
