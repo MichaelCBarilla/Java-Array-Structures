@@ -54,6 +54,7 @@ public class UOA<T> {
 			return null;
 		}
 		node = node.deepCopy();
+		// Optimizing/Bubbling most used data towards top.
 		if (i != 0) {																				//Bubble up node
 			temp = data[i - 1];
 			data[i - 1] = data[i];
